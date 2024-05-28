@@ -1,0 +1,668 @@
+
+    <div className='d-flex justify-content-center align-items-center w-100' style={{ height: '100vh' }}>
+                <div className='shadow border w-50 p-4'>
+                    <Row>
+                        <Col sm={12} md={6}>
+                            <img src="https://tse1.mm.bing.net/th?id=OIP.vpTlTgNWAnViDi0YsbiF1gHaHa&pid=Api&P=0&h=180" alt="" className='img-fluid' style={{width:'300px'}} />
+                        </Col>
+                        <Col sm={12} md={6}>
+                            {
+                                status ?
+                                    <h3>Login</h3>
+                                    :
+                                    <h3>Register</h3>
+
+                            }
+
+                            <div className='mt-4'>
+                                {
+                                    !status &&
+                                    <FloatingLabel controlId="user" label="user name" className="mb-3" >
+                                        <Form.Control type="text" placeholder="name@example.com" ></Form.Control>
+                                    </FloatingLabel>
+                                }
+
+                                <FloatingLabel controlId="floatingInput" label="Email" className="mb-3" >
+                                    <Form.Control type="email" placeholder="email"  />
+                                </FloatingLabel>
+                                <FloatingLabel controlId="floatingPassword" label="Password" className="mb-3" >
+                                    <Form.Control type="password" placeholder="Password"  />
+                                </FloatingLabel>
+                            </div>
+                            <div className='mt-3 d-flex justify-content-between'>
+                                    {
+                                        status ?
+
+                                        <button className='btn btn-info' > 
+                                        <span>login</span>
+                                         </button>
+                                         :
+                                        <button className='btn btn-info' > 
+                                        <span>register</span> 
+                                        </button>
+                                    }
+                               
+                                <button className='btn btn-link' style={{textDecoration:'none'}} onChange={changeStatus}>
+                                  {
+                                    status ?
+                                    <span>Are you new ?</span>
+                                    :
+                                    <span  >Already a user ?</span>
+                                  }
+                                  
+                                          
+                                    
+                                </button>
+
+                            </div>
+                        </Col>
+                    </Row>
+                  
+
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+      
+            <form action="">
+            <label >
+                <input type="file"    onChange={(e)=>{setRecipes({...recipes,imageUrl:e.target.files[0]})}}/>
+                  <img src="https://www.freeiconspng.com/uploads/multimedia-photo-icon-31.png" alt="" className='img-fluid' />
+            </label>
+              <p className='text-danger'> invalid file format.. image should be jpg,png or jpeg</p>
+            
+              <label>title</label>
+              <input type="text" id='title'  name='title' onChange={e=>setRecipes({...recipes,title:e.target.value})}/><br/>
+              <br/>
+              <label>ingredients</label>
+                <textarea name="ingredients" id="ingredients"></textarea>
+        <br/>
+        <br/>
+          <label>instructions</label>
+          <textarea name="instructions" id="instructions"  onChange={e=>setRecipes({...recipes,intructions:e.target.value})}></textarea>
+          <br/>
+          <br/>
+          <label>cooking time</label>
+          <input type="text" id='cooking time' name='cookingtime'  onChange={e=>setRecipes({...recipes,cookingTime:e.target.value})} />
+            
+            </form>
+
+
+
+
+            import React from 'react'
+
+
+function Dashboard() {
+  return (
+    <>
+    {/* saved recipies!!!!! */}
+    <Header/>
+   <div className='p-2'>
+    <h1>welcome <span className='text-warning'></span></h1>
+   </div>
+   <div >
+   <Row>
+      <Col sm={12} md={6} className='p-3'>
+      <h3>saved recipes</h3>
+      <div className='border border-3 p-3'>
+          <div className='d-flex justify-content-between border shadow mb-3 p-3 rounded'>
+          <h4>title</h4>
+          <div>
+            <a href="" className='btn mt-3'>
+            <i className="fa-brands fa-github fa-2xl" />
+            </a>
+           
+            <button className='btn mt-3' >
+            <i className="fa-solid fa-trash fa-2xl" />
+            </button>
+          </div>
+        </div>
+        <h3 className='text-center '>no saved recipies available</h3>
+    
+{/*         
+        <div className='d-flex justify-content-between border shadow mb-3 p-3 rounded'>
+          <h4>project title 1</h4>
+          <div>
+            <a href="" className='btn mt-3'>
+            <i className="fa-brands fa-github fa-2xl" />
+            </a>
+           <Edit/>
+            <button className='btn mt-3'>
+            <i className="fa-solid fa-trash fa-2xl" />
+            </button>
+          </div>
+        </div> */}
+
+      </div>
+      </Col>
+      <Col sm={8} md={6}>
+        
+      </Col>
+  </Row>  
+   </div>
+  
+
+   </>
+  )
+}
+
+export default Dashboard
+
+
+
+
+
+
+ // const [allRecipe,setAllRecipe]=useState([])
+
+  // useEffect(()=>{
+  //   if(sessionStorage.getItem('token')){
+
+  //     getData()
+  
+  //   }
+  //   else{
+  //     console.log("login first")
+  //   }
+  // },[])
+
+  // console.log(allRecipe)
+
+  // const getData=async()=>{
+  //   const header={"Authorization":`Bearer ${sessionStorage.getItem('token')}`}
+  //   const result=await allRecipes(header)
+  //   console.log(result)
+  //   if(result.status==200){
+  //     setAllRecipe(result.data)
+  //   }
+  //   else{
+  //     console.log(result.response.data)
+  //   }
+
+
+   <div >
+   <Row>
+      <Col sm={12} md={6} className='p-3'>
+      <h3>uploaded recipes</h3>
+      <div className='border border-3 p-3'>
+        {
+           yourRecipe.length>0?
+           yourRecipe.map(item=>(
+
+            <div className='d-flex justify-content-between border shadow mb-3 p-3 rounded'>
+            <h4>{item.title}</h4>
+            <div>
+              <a href="" className='btn mt-3'>
+              <i className="fa-brands fa-pen-to-squre fa-2xl" />
+              </a>
+             
+              <button className='btn mt-3' >
+              <i className="fa-solid fa-trash fa-2xl" />
+              </button>
+            </div>
+          </div>
+           ))
+           :
+           <h3 className='text-center '>no recipies added</h3>
+        }
+      </div>
+      </Col>
+      <Col sm={8} md={6}>
+        
+      </Col>
+  </Row> 
+
+  
+      <div className='text-center' style={{fontSize:'30px',textDecoration:"none"}}>
+      <Link to={'/prof'} style={{textDecoration:"none"}}>
+      <i class="fa-solid fa-forward fa-beat" style={{color: "#FFD43B",}} />
+      {" "}
+        BACK</Link>
+      </div>   
+   </div>
+
+
+
+
+
+    // const[imageStatus,setImageStatus]=useState(false)
+    // const [preview,setPreview]=useState("")
+  
+    //  const [recipes,setRecipes]=useState({
+    //     id:recipes._id,title:recipes.title,ingredients:recipes.ingredients,instructions:recipes.instructions,cookingTime:recipes.cookingTime,imageUrl:""
+    //   })
+  
+    // //   console.log(recipes)
+  
+  
+    
+  
+    // useEffect(()=>{
+    // //   console.log(recipes)
+    //   if(recipes.imageUrl.type == "image/jpg" || recipes.imageUrl.type == "image/jpeg" || recipes.imageUrl.type == "image/png"){
+    //     // console.log("image is correct format")
+    //     setPreview(URL.createObjectURL(recipes.imageUrl))
+    //     setImageStatus(false)
+    //   }
+    //   else{
+    //     setImageStatus(true)
+    //     setPreview("")
+    //   }
+    // },[recipes.imageUrl])
+
+    // const handleClose = () =>{
+    //     setShow(false);
+    //     setPreview("")
+    //     setRecipes({
+    //       id:recipes._id,title:recipes.title,ingredients:recipes.ingredients,instructions:recipes.instructions,cookingTime:recipes.cookingTime,imageUrl:""
+    //     })
+    // } 
+    // const handleShow = () => setShow(true);
+  
+    // const handleUpdateRecipe=async()=>{
+    //     console.log(recipes)
+    //   const {title,ingredients,instructions,cookingTime,imageUrl}=recipes
+    //   if(!title || !ingredients || !instructions || !cookingTime || !imageUrl ){
+    //     toast.warning("enter valid input data in every feilds")
+    //   }
+    //   else{
+        
+    //     const formData=new FormData()
+    //     formData.append("title",title)
+    //     formData.append("ingredients",ingredients)
+    //     formData.append("instructions",instructions)
+    //     formData.append("cookingTime",cookingTime)
+    //    preview? formData.append("imageUrl",recipes.imageUrl):formData.append("imageUrl",recipes.imageUrl)
+        
+  
+    //     const token=sessionStorage.getItem("token")
+    //     if(preview){
+    //         const reqHeader={"Content-Type":"multipart/form-data",
+    //                       "Authorization":`Bearer ${token}`
+    //     }
+    //     const result=await editRecipes(recipes.id,formData,reqHeader)
+    //     if(result.status==200){
+    //       toast.success(`recipe ${recipes.title} added successfully`)
+    //       handleClose()
+    //     } 
+    //     else{
+    //       toast.error(result.response.data)
+    //     }   
+
+    //     }
+    //     else{
+    //         const reqHeader={"Content-Type":"multipart/form-data",
+    //         "Authorization":`Bearer ${token}`
+    //         }
+    //         const result=await editRecipes(recipes.id,formData,reqHeader)
+    //      if(result.status==200){
+    //     toast.success(`recipe ${recipes.title}update successfully`)
+    //     handleClose()
+    //     } 
+    //     else{
+    //         toast.error(result.response.data)
+    // } 
+    //     }
+  
+                
+        
+    //   }
+    // }
+
+
+
+
+profile
+
+    import React, { useEffect, useState } from 'react'
+import FloatingLabel from 'react-bootstrap/FloatingLabel';
+import Form from 'react-bootstrap/Form';
+import { Row,Col } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import Add from '../Components/Add';
+import { useNavigate } from 'react-router-dom';
+ import { TokenAuthContext } from '../Context Api/AuthContextapi';
+import { useContext } from 'react';
+import server_url from '../Services/server_url'
+
+
+function Profile() {
+   const {authStatus,setAuthStatus}=useContext(TokenAuthContext)
+
+  const [user,setUser]=useState("")
+  
+
+  const[userss,setUserss]=useState({
+    id:"",username:"",email:"",password:"",Profile:""
+  })
+   
+  
+  const navigate=useNavigate()
+
+  // useEffect(()=>{
+    
+   
+  // },[])
+
+  useEffect(()=>{
+    setUser(sessionStorage.getItem("username"))
+    if(sessionStorage.getItem('token')){
+      const userDetails=JSON.parse(sessionStorage.getItem('userDetails'))
+      // console.log(userDetails)
+         setUserss({id:userDetails._id,username:userDetails.username,email:userDetails.email,password:userDetails.password,Profile:""})   
+    }
+  },[])
+  
+
+
+  const handleLogout=()=>{
+    sessionStorage.removeItem('token')
+    sessionStorage.removeItem('username')
+    sessionStorage.removeItem('userDetails')
+    navigate('/')
+   setAuthStatus(false)
+
+  }
+  console.log(userss)
+
+
+  const handleProfileUpdate=async()=>{
+    console.log(userss)
+  }
+  
+  return (
+    <>
+   
+    <div className='p-2'>
+      <div>
+        <div className='p-2'>
+          <h1>welcome <span className='text-warning'>{user}</span></h1>
+        </div>
+      </div>
+
+      <Row>
+      <Col sm={1} md={2} className='m-5'>
+              <button className='btn btn-outline-warning p-4' onClick={handleLogout}>
+                <i className="fa-solid fa-right-from-bracket fa-xl" style={{color: "#e74813",}} />
+                Logout
+                </button>
+      </Col>
+      </Row>
+    <Row>
+    <Col sm={12} md={5}>
+      <div className='p-5 m-4 border shadow border-3' style={{width:'200px'}} >
+        <Link to={'/save'} className='btn'><i className="fa-solid fa-bookmark" style={{color: "#FFD43B"}}>  saved</i></Link>
+        </div>
+        <div className='p-5 m-4 border shadow border-3' style={{width:'200px'}} >
+        
+        <Add/>
+        </div>
+        <div className='p-5 m-4 border shadow border-3' style={{width:'200px'}} >
+        <Link  to={'/yours'} className='btn'><i className="fa-solid fa-paperclip" style={{color: "#FFD43B"}}>Your Recipes</i></Link>
+        </div>
+        {/* <div className='p-5 m-4 border shadow border-3' style={{width:'200px'}} >
+           <Link className='btn'><i className="fa-solid fa-download fa-flip fa-2xl" style={{color: "#3bf109"}}> </i>
+           
+           </Link>
+        </div> */}
+      </Col>
+
+      <Col sm={12} md={6}>
+    
+    <div className='p-5 border shadow border-3 m-3 '  style={{width:'400px',height:'600px'}}>
+     <div className='d-flex justify-content-between'>
+     <h3>profile</h3>
+     <button className='btn'>
+     <i className="fa-solid fa-check" style={{color: "#63E6BE",}} />
+     </button>
+     </div>
+     <div>
+              <label >
+              <input type="file" name='' id='in' style={{display:'none'}}    onChange={(e)=>setUser({...userss,Profile:e.target.files[0]})}/>
+           
+
+                <img src="https://www.pngkey.com/png/full/115-1150152_default-profile-picture-avatar-png-green.png" alt="" className='img-fluid'  width={'150px'}/>
+
+             </label>
+             <FloatingLabel controlId="titleinp" label="name"className="mb-3">
+         <Form.Control type="text" placeholder="name" value={userss?.username} onChange={(e)=>setUserss({...userss,username:e.target.value})} />
+       </FloatingLabel>
+       <FloatingLabel controlId="emailinp" label="email"className="mb-3">
+         <Form.Control type="text" placeholder="email" value={userss?.email} onChange={(e)=>setUserss({...userss,email:e.target.value})} />
+       </FloatingLabel>
+       <div className='d-grid mt-3'>
+        <button className='btn btn-block btn-success' onClick={handleProfileUpdate} >update</button>
+      </div>
+     </div>
+     </div>
+     </Col>
+     </Row>
+     <div className='text-center' style={{fontSize:'30px',textDecoration:"none"}}>
+      <Link to={'/'} style={{textDecoration:"none"}}>
+      <i class="fa-solid fa-backward fa-beat" style={{color: "#FFD43B",}} />
+      {" "}
+        BACK</Link>
+      </div>  
+     </div>
+     </>
+  )
+}
+
+export default Profile
+
+
+
+import React, { useEffect, useState } from 'react'
+import FloatingLabel from 'react-bootstrap/FloatingLabel';
+import Form from 'react-bootstrap/Form';
+import { Row,Col } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import Add from '../Components/Add';
+import { useNavigate } from 'react-router-dom';
+ import { TokenAuthContext } from '../Context Api/AuthContextapi';
+import { useContext } from 'react';
+import server_url from '../Services/server_url'
+import { updateProfile } from '../Services/allApi';
+import { toast } from 'react-toastify';
+
+
+function Profile() {
+   const {authStatus,setAuthStatus}=useContext(TokenAuthContext)
+
+  const [user,setUser]=useState("")
+  const [existingProfile,setExistingProfile]=useState("")
+  const [preview,setPreview]=useState("")
+  
+
+  const[userss,setUserss]=useState({
+    id:"",username:"",email:"",password:"",Profile:""
+  })
+   
+  
+  const navigate=useNavigate()
+
+  // useEffect(()=>{
+    
+   
+  // },[])
+
+  useEffect(()=>{
+    setUser(sessionStorage.getItem("username"))
+    if(sessionStorage.getItem('token')){
+      const userDetails=JSON.parse(sessionStorage.getItem('userDetails'))
+      // console.log(userDetails)
+         setUserss({id:userDetails._id,username:userDetails.username,email:userDetails.email,password:userDetails.password,Profile:""
+
+         }) 
+         setExistingProfile(userDetails.Profile)
+        
+           }
+
+  },[])
+
+  useEffect(()=>{
+    if(userss.Profile){
+      setPreview(URL.createObjectURL(userss.Profile))
+    }
+    else{
+      setPreview("")
+    }
+  },[userss.Profile])
+  
+
+
+  const handleLogout=()=>{
+    sessionStorage.removeItem('token')
+    sessionStorage.removeItem('username')
+    sessionStorage.removeItem('userDetails')
+    navigate('/')
+   setAuthStatus(false)
+
+  }
+  // console.log(userss)
+
+
+
+  const handleProfileUpdate=async()=>{
+    console.log(user)
+    console.log(existingProfile,"profile image")
+    const {username,password,email,Profile}=userss
+    if(!username || !password || !email ){
+      toast.warning("enter valid inputs")
+    }
+    else{
+      const formData=new FormData()
+      formData.append("username",username)
+      formData.append("password",password)
+      formData.append("email",email)
+      preview?formData.append("Profile",Profile):formData.append("Profile",existingProfile)
+
+      const header={
+        "Authorization":`Bearer ${sessionStorage.getItem('token')}`,
+        "content-Type":preview?"multipart/form-data":"application/json"
+      }
+      const result=await updateProfile(header,formData)
+      if(result.status==200){
+        console.log(result.data)
+        toast.success("profile update successfully")
+        sessionStorage.setItem("userDetails",JSON.stringify(result.data))
+      }
+      else{
+        toast.error(result.response.data)
+      }
+    }
+  }
+  
+  return (
+    <>
+   
+    <div className='p-2 img-fluid' style={{backgroundImage:" url()",
+       backgroundRepeat:'no-repeat',backgroundSize:"100%"
+    }}>
+      <div>
+        <div className='p-2'>
+          <h1>welcome <span className='text-warning'>{user}</span></h1>
+        </div>
+      </div>
+      <div className='' >
+      <Row>
+      <Col sm={1} md={2} className='m-5'>
+              <button className='btn btn-outline-warning p-4' onClick={handleLogout}>
+                <i className="fa-solid fa-right-from-bracket fa-xl" style={{color: "#e74813",}} />
+                Logout
+                </button>
+      </Col>
+      </Row>
+    <Row>
+    <Col sm={12} md={5}>
+       <div className='p-5 m-4 border shadow border-3' style={{width:'200px'}} >
+        <Link to={'/save'} className='btn'><i className="fa-solid fa-bookmark" style={{color: "#FFD43B"}}>  saved</i></Link>
+        </div> 
+        <div className='p-5 m-4 border shadow border-3' style={{width:'200px'}} >
+        
+        <Add/>
+        </div>
+        <div className='p-5 m-4 border shadow border-3' style={{width:'200px'}} >
+        <Link  to={'/yours'} className='btn'><i className="fa-solid fa-paperclip" style={{color: "#FFD43B"}}>Your Recipes</i></Link>
+        </div>
+        {/* <div className='p-5 m-4 border shadow border-3' style={{width:'200px'}} >
+           <Link className='btn'><i className="fa-solid fa-download fa-flip fa-2xl" style={{color: "#3bf109"}}> </i>
+           
+           </Link>
+        </div> */}
+      </Col>
+
+      <Col sm={12} md={6}>
+    
+    <div className='p-5 border shadow border-3 m-3 '  style={{width:'400px',height:'600px'}}>
+     <div className='d-flex justify-content-between'>
+     <h3>profile</h3>
+     <button className='btn'>
+     <i className="fa-solid fa-check" style={{color: "#63E6BE",}} />
+     </button>
+     </div>
+     <div>
+              <label >
+              <input type="file" name='' id='in' style={{display:'none'}} onChange={(e)=>setUserss({...userss,Profile:e.target.files[0]})}/>
+           
+              {
+                existingProfile =="" ? 
+                <img src={preview?preview:"https://www.pngkey.com/png/full/115-1150152_default-profile-picture-avatar-png-green.png"} alt="" className='img-fluid'  width={'150px'}/>
+                
+               :
+                
+                <img src={preview?preview:`${server_url}/uploads/${existingProfile}`} alt="" className='img-fluid'  width={'150px'}/>
+                
+
+                
+                
+               
+                
+                
+
+               }
+               
+
+             </label >
+             <div >
+             <FloatingLabel controlId="titleinp" label="name"className="mb-3">
+         <Form.Control type="text" placeholder="name" value={userss?.username} onChange={(e)=>setUserss({...userss,username:e.target.value})} />
+       </FloatingLabel>
+       <FloatingLabel controlId="emailinp" label="email"className="mb-3">
+         <Form.Control type="text" placeholder="email" value={userss?.email} onChange={(e)=>setUserss({...userss,email:e.target.value})} />
+       </FloatingLabel>
+      
+       <div className='d-grid mt-3'>
+        <button className='btn btn-block btn-success' onClick={handleProfileUpdate} >update</button>
+      </div>
+      </div>
+     </div>
+     </div>
+     </Col>
+     </Row>
+     </div>
+     <div className='text-center' style={{fontSize:'30px',textDecoration:"none"}}>
+      <Link to={'/'} style={{textDecoration:"none"}}>
+      <i class="fa-solid fa-backward fa-beat" style={{color: "#FFD43B",}} />
+      {" "}
+        BACK</Link>
+      </div>  
+     </div>
+     </>
+  )
+}
+
+export default Profile
+
