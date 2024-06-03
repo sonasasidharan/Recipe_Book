@@ -17,7 +17,9 @@ function Edit({recipe}) {
     const {editRecipeResponse,setEditRecipeResponse}=useContext(editRecipeResponseContext)
 
     const [recipes,setRecipes]=useState({
-        id:recipe._id,title:recipe.title,ingredients:recipe.ingredients,instructions:recipe.instructions,cookingTime:recipe.cookingTime,catagory:recipe.catagory,imageUrl:""
+        id:recipe._id,title:recipe.title,ingredients:recipe.ingredients,instructions:recipe.instructions,cookingTime:recipe.cookingTime,
+        catagory:recipe.catagory,prepTime:recipe.prepTime,totalCooktime:recipe.totalCooktime,totalfat:recipe.totalfat,
+        sodium:recipe.sodium,dietaryfiber:recipe.dietaryfiber,protein:recipe.protein,vitaminc:recipe.vitaminc,potassium:recipe.potassium,imageUrl:""
         })
 
         const [imgStatus,setImgStatus]=useState(false)
@@ -41,8 +43,10 @@ function Edit({recipe}) {
 
         const handleUpdate=async()=>{
             console.log(recipes)
-            const{title,ingredients,instructions,cookingTime,catagory}=recipes
-            if(!title || !ingredients || !instructions || !cookingTime||!catagory ){
+            // const{title,ingredients,instructions,cookingTime,catagory,prepTime,totalCooktime}=recipes
+            const {title,ingredients,instructions,cookingTime,catagory,prepTime,totalCooktime,totalfat,sodium,dietaryfiber,protein,vitaminc,potassium,imageUrl}=recipes
+    if(!title || !ingredients || !instructions || !cookingTime ||!catagory ||!prepTime || !totalCooktime || !imageUrl ||!totalfat ||!sodium ||!dietaryfiber ||!protein ||!vitaminc ||!potassium){
+            // if(!title || !ingredients || !instructions || !cookingTime||!catagory ||!prepTime ||!totalCooktime ){
                 toast.warning("enter valid input data in every feilds")
               }
               else{
@@ -50,8 +54,16 @@ function Edit({recipe}) {
                 formData.append("title",title)
                 formData.append("ingredients",ingredients)
                 formData.append("instructions",instructions)
+                formData.append("prepTime",prepTime)
                 formData.append("cookingTime",cookingTime)
+                formData.append("totalCooktime",totalCooktime)
                 formData.append("catagory",catagory)
+                formData.append("totalfat",totalfat)
+                formData.append("sodium",sodium)
+                formData.append("dietaryfiber",dietaryfiber)
+                formData.append("protein",protein)
+                formData.append("vitaminc",vitaminc)
+                formData.append("potassium",potassium)
                 preview?formData.append("imageUrl",recipes.imageUrl):formData.append("imageUrl",recipe.imageUrl)
                 
           
@@ -96,7 +108,9 @@ function Edit({recipe}) {
         setShow(false);
         setPreview("")
         setRecipes({
-            id:recipe._id,title:recipe.title,ingredients:recipe.ingredients,instructions:recipe.instructions,cookingTime:recipe.cookingTime,catagory:recipe.catagory,imageUrl:""
+          id:recipe._id,title:recipe.title,ingredients:recipe.ingredients,instructions:recipe.instructions,cookingTime:recipe.cookingTime,
+          catagory:recipe.catagory,prepTime:recipe.prepTime,totalCooktime:recipe.totalCooktime,totalfat:recipe.totalfat,
+          sodium:recipe.sodium,dietaryfiber:recipe.dietaryfiber,protein:recipe.protein,vitaminc:recipe.vitaminc,potassium:recipe.potassium,imageUrl:""
         })
     } 
     const handleShow = () => setShow(true)
@@ -143,12 +157,37 @@ keyboard={false}
       <FloatingLabel controlId="instructioninp" label="instructions" className="mb-3">
          <Form.Control type="text" placeholder="instructions" value={recipes.instructions}  onChange={(e)=>{setRecipes({...recipes,instructions:e.target.value})}} />
       </FloatingLabel>
+      <FloatingLabel controlId="prepTimeinp" label="prepTime" className="mb-3">
+        <Form.Control type="text" placeholder="prepTime" value={recipes.prepTime}  onChange={(e)=>{setRecipes({...recipes,prepTime:e.target.value})}}/>
+      </FloatingLabel>
       <FloatingLabel controlId="cookingtimeinp" label="cookingtime" className="mb-3">
-        <Form.Control type="text" placeholder="cookingtime" value={recipes.cookingTime}  onChange={(e)=>{setRecipes({...recipes,cookingTime:e.target.value})}}/>
+        <Form.Control type="text" placeholder="cookintimee" value={recipes.cookingTime}  onChange={(e)=>{setRecipes({...recipes,cookingTime:e.target.value})}}/>
+      </FloatingLabel>
+      <FloatingLabel controlId="totalCooktimeinp" label="totalCooktim" className="mb-3">
+        <Form.Control type="text" placeholder="totalCooktime" value={recipes.totalCooktime}  onChange={(e)=>{setRecipes({...recipes,totalCooktime:e.target.value})}}/>
       </FloatingLabel>
       <FloatingLabel controlId="catagoryinp" label="catagory" className="mb-3">
         <Form.Control type="text" placeholder="catagory" value={recipes.catagory}  onChange={(e)=>{setRecipes({...recipes,catagory:e.target.value})}}/>
       </FloatingLabel>
+      <FloatingLabel controlId="totalfatinp" label="totalfat" className="mb-3">
+        <Form.Control type="text" placeholder="totalfat"  value={recipes.totalfat} onChange={e=>setRecipes({...recipes,totalfat:e.target.value})} />
+      </FloatingLabel>
+      <FloatingLabel controlId="sodiuminp" label="sodium" className="mb-3">
+        <Form.Control type="text" placeholder="sodium"  value={recipes.sodium} onChange={e=>setRecipes({...recipes,sodium:e.target.value})} />
+      </FloatingLabel>
+      <FloatingLabel controlId="dietryfiberinp" label="dietryfiber" className="mb-3">
+        <Form.Control type="text" placeholder="dietryfiber" value={recipes.dietaryfiber}  onChange={e=>setRecipes({...recipes,dietaryfiber:e.target.value})} />
+      </FloatingLabel>
+      <FloatingLabel controlId="proteininp" label="protein" className="mb-3">
+        <Form.Control type="text" placeholder="protein" value={recipes.protein} onChange={e=>setRecipes({...recipes,protein:e.target.value})} />
+      </FloatingLabel>
+      <FloatingLabel controlId="vitamincinp" label="vitaminc" className="mb-3">
+        <Form.Control type="text" placeholder="vitaminc" value={recipes.vitaminc} onChange={e=>setRecipes({...recipes,vitaminc:e.target.value})} />
+      </FloatingLabel>
+      <FloatingLabel controlId="potassiuminp" label="potassium" className="mb-3">
+        <Form.Control type="text" placeholder="potassium"  value={recipes.potassium} onChange={e=>setRecipes({...recipes,potassium:e.target.value})} />
+      </FloatingLabel>
+           
     </div>
     </Col>
     

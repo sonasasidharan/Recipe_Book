@@ -1,0 +1,456 @@
+<div className='justify-content-center align-items-center p-5 md-4'>
+    <Modal  style={{width:'100%'}} show={show} onHide={handleClose} backdrop="static" keyboard={false} className='modal-xl align-items-center'>
+        <Modal.Header closeButton>
+          <Modal.Title style={{color:"green"}}>Recipes</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div >
+        <Row>
+           
+        <Col className='align-items-center p-3'>
+        <h2 style={{color:"#FFD43B"}}>{recipe.title}</h2>
+        <div className=" my-4 p-3">
+                            <div className='d-flex align-items-center gap-5'>
+                                <span className=' d-flex  align-items-center gap-1'>
+                                    <i class="fa-solid fa-star fa-2xs" style={{ color: '#ffc800' }}></i>4.2
+                                </span>
+
+                                <span>
+
+                                </span>
+                            </div>
+                            <div className=" my-2 d-flex">
+                                <span className='me-5'>hgfd</span>
+                            </div>
+                            <h5>mnbvc</h5>
+                          
+                            <p></p>
+                        </div>
+            <img className='img-fluid' src={recipe.imageUrl?`${server_url}/uploads/${recipe.imageUrl}`:"https://d2slcw3kip6qmk.cloudfront.net/marketing/blog/2017Q2/project-planning-header@2x.png" }/>
+            {/* </Col>
+            <Col> */}
+            
+            <h6 style={{color:"orange"}}>ingredients</h6>
+            <p>{recipe.ingredients}</p>
+            <h6 style={{color:"orange"}}>instructions</h6>
+            <p>{recipe.instructions}</p>
+            <h6 style={{color:"orange"}}>prepTime</h6>
+            <p>{recipe.prepTime}</p>
+            <h6 style={{color:"orange"}}>cooking time</h6>
+            <p>{recipe.cookingTime}</p>
+            <h6 style={{color:"orange"}}>totalCooktime</h6>
+            <p>{recipe.totalCooktime}</p>
+            <h6 style={{color:"orange"}}>catagory</h6>
+            <p>{recipe.catagory}</p>
+            <div>
+            
+                
+                    <p>total fat</p>
+                    <h6>{recipe.totalfat}</h6>
+                    <p>sodium</p>
+                    <h6>{recipe.sodium}</h6>
+                    <p>dietry fiber</p>
+                    <h6>{recipe.dietrfiber}</h6>
+                    <p>protein</p>
+                    <h6>{recipe.protein}</h6>
+                    <p>vitaminc</p>
+                    <h6>{recipe.vitaminc}</h6>
+                    <p>potassium</p>
+                    <h6>{recipe.potassium}</h6>
+                  
+            </div>
+
+           <div className='mt-3 p-3 d-flex justify-content-between'>
+                   <button  className='btn btn-primary p-2'  onClick={handleSavedRecipe}> 
+                <i class="fa-solid fa-bookmark fa-xl" style={{color: "#FFD43B",}} />
+                 </button> 
+                
+                <Share status={true}/>
+              
+                {/* <a href="">
+               <i class="fa-regular fa-star" style={{color: "#FFD43B",}} />
+                </a> */}
+            </div> 
+
+            </Col>
+            <div>
+                                    <div className=' align-items-center gap-3 my-3 rating__group'>
+                                    <span style={{ color: '#ffc800' }} onClick={e=>setReviews({...reviews,ratings:1})}>
+                                        1 <i class="fa-solid fa-star fa-2xs" ></i>
+                                    </span>
+                                    <span style={{ color: '#ffc800' }} onClick={e=>setReviews({...reviews,ratings:2})}>
+                                        2 <i class="fa-solid fa-star fa-2xs" ></i>
+                                    </span>
+                                    <span style={{ color: '#ffc800' }} onClick={e=>setReviews({...reviews,ratings:3})}>
+                                        3 <i class="fa-solid fa-star fa-2xs" ></i>
+                                    </span>
+                                    <span style={{ color: '#ffc800' }} onClick={e=>setReviews({...reviews,ratings:4})}>
+                                        4 <i class="fa-solid fa-star fa-2xs"></i>
+                                    </span>
+                                    <span style={{ color: '#ffc800' }} onClick={e=>setReviews({...reviews,ratings:5})}>
+                                        5 <i class="fa-solid fa-star fa-2xs"></i>
+                                    </span>
+                                </div>
+                                    <div className='border rounded w-50 d-flex justify-content-between mb-4'>
+                                      <input type="text" className='border-0 p-2  w-100' placeholder='reviews' style={{width:"100px",borderColor:'yellow'}}  onChange={e=>setReviews({...reviews,reviewComment:e.target.value})}/>
+                                      <button className='btn btn-warning' type='submit' onClick={handleAddReview}>submit</button>
+                                    </div>
+      
+                           </div> 
+        </Row>
+        </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      </div>
+===========================================================================================================================================
+
+
+  // const {rid}=useParams
+  // const user=sessionStorage.getItem("username")
+  // const [reviews,setReviews]=useState({
+  //   username:user,reviewComment:"",ratings:""
+  // })
+  //   const [review,setReview]=useState({
+  //     username:"",reviewComment:"",ratings:""
+  //   })
+  //   console.log(reviews)
+    
+
+    // const getData=async()=>{
+    //   const header={"Authorization":`Bearer ${sessionStorage.getItem('token')}`}
+    //   const result=await singleRecipe(rid,header)
+    //   console.log(result.data)
+    //   if(result.status==200){
+    //     setReviews(result.data)
+       
+    //   }
+    //   else{
+    //     console.log(result.response.data)
+    //   }
+    // }
+
+
+    
+  // const handleAddReview=async()=>{
+  //   const header={"Authorization":`Bearer ${sessionStorage.getItem('token')}`}
+
+  //   const {username:user,reviewComment,ratings}=reviews
+
+  //   const result=await addReviews(rid, reviews, header)
+  //   if(result.status==200){
+  //     toast.success("review added successfully")
+  //     setReviews({
+  //       reviewComment:"", ratings:""
+  //     })
+  //   }
+  //   else{
+  //     toast.error(result.response.data)
+  //   }
+  //   // console.log(result)
+  // }
+  // console.log(reviews)
+
+ 
+  
+// const handleSavedRecipe=async({ recipeId, userId })=>{
+//   const data = {
+//     rid: recipeId, userId: userId
+//   }
+//   console.log(data)
+
+//   const header = {
+//     'Content-Type': 'application/json',
+//   } 
+ 
+  
+    // const result = await saveRecipe(data, header)
+    // if(result.status==200){
+    //   toast.success("recipe saved successfully")
+    //   sessionStorage.setItem('savedRecipeId', recipeId)
+    // }else{
+    //   toast.error("recipe saving is failed")
+    // }
+  
+
+
+
+
+
+
+  sdfgcvhbjknml,;.'/
+
+
+
+=====================================================================================================================================
+
+
+import React, { useEffect, useState } from 'react'
+import{Row,Col} from 'react-bootstrap'
+import Table from 'react-bootstrap/Table';
+import Share from '../Components/Share';
+import { useParams } from 'react-router-dom';
+import { getAllReviews, singleRecipe } from '../Services/allApi';
+import { addReviews, saveRecipe } from '../Services/allApi';
+import { toast } from 'react-toastify';
+
+ function Recipes() {
+
+//   const [recipe,setRecipe]=useState([])
+//   const {rid}=useParams
+//   const user=sessionStorage.getItem("username")
+//   const [reviews,setReviews]=useState({
+//     username:user,reviewComment:"",ratings:""
+//   })
+//     const [allreview,setAllReview]=useState({
+//       username:"",reviewComment:"",ratings:""
+//     })
+
+
+//     useEffect(()=>{
+//       getData()
+//     },[rid])
+// console.log(recipe)
+
+//     const getData=async()=>{
+//       const header={"Authorization":`Bearer ${sessionStorage.getItem('token')}`}
+//       // console.log(header)
+//       const result=await singleRecipe(rid,header)
+//       const rev=await getAllReviews(rid,header)
+//       console.log(result.data.reviews)
+//       if(result.status==200){
+//         setRecipe(result.data)
+//       }
+//       else{
+//         console.log(result.response.data)
+//       }
+//       if(rev.status==200){
+//         setAllReview(rev.data)
+//       }
+//       else{
+//         console.log(rev.response.data)
+//       }
+//     }
+
+        
+//   const handleAddReview=async()=>{
+//     const header={"Authorization":`Bearer ${sessionStorage.getItem('token')}`}
+
+//     const {username:user,reviewComment,ratings}=reviews
+
+//     const result=await addReviews(rid, reviews, header)
+//     if(result.status==200){
+//       toast.success("review added successfully")
+//       setReviews({
+//         reviewComment:"", ratings:""
+//       })
+//     }
+//     else{
+//       toast.error(result.response.data)
+//     }
+//     // console.log(result)
+//   }
+//   console.log(allreview)
+//   console.log(reviews)
+
+
+const [recipe, setRecipe] = useState([]);
+const { rid } = useParams();
+const user = sessionStorage.getItem("username");
+const [reviews, setReviews] = useState({
+  username: user,
+  reviewComment: "",
+  ratings: ""
+});
+const [allReviews, setAllReviews] = useState([]);
+
+useEffect(() => {
+  getData();
+}, []);
+
+const getData = async () => {
+  const header = { "Authorization": `Bearer ${sessionStorage.getItem('token')}` };
+  try {
+    const result = await singleRecipe(rid, header);
+    const rev = await getAllReviews(rid, header);
+
+    if (result.status === 200) {
+      setRecipe(result.data);
+    } else {
+      console.log(result.response.data);
+    }
+
+    if (rev.status === 200) {
+      setAllReviews(rev.data);
+    } else {
+      console.log(rev.response.data);
+    }
+  } catch (error) {
+    console.error("Error fetching data", error);
+  }
+};
+
+const handleAddReview = async () => {
+  const header = { "Authorization": `Bearer ${sessionStorage.getItem('token')}` };
+  try {
+    const result = await addReviews(rid, reviews, header);
+
+    if (result.status === 200) {
+      toast.success("Review added successfully");
+      setReviews({
+        username: user,
+        reviewComment: "",
+        ratings: ""
+      });
+      getData(); // Refresh reviews
+    } else {
+      toast.error(result.response.data);
+    }
+  } catch (error) {
+    toast.error("Error adding review");
+    console.error(error);
+  }
+};
+
+console.log(recipe);
+console.log(allReviews);
+console.log(reviews);
+
+
+
+
+
+
+
+  
+
+  return (
+    <>
+    <Row>
+      <Col md='6'>
+        <div className=' mt-5  align-items-center p-5 border'>
+          <h2>recipe name</h2>
+          <div className="border my-4 p-3">
+                            <div className='d-flex align-items-center gap-5'>
+                                <span className=' d-flex  align-items-center gap-1'>
+                                    <i class="fa-solid fa-star fa-2xs" style={{ color: '#ffc800' }}></i>4.2
+                                </span>
+
+                                <span>
+
+                                </span>
+                            </div>
+                            <div className=" my-2 d-flex">
+                                <span className='me-5'>hgfd</span>
+                            </div>
+                            <h5>mnbvc</h5>
+                          
+                            <p></p>
+                        </div>
+          <img src="https://d2slcw3kip6qmk.cloudfront.net/marketing/blog/2017Q2/project-planning-header@2x.png" className='img-fluid' alt="" style={{width:'600px'}} />
+          {
+             
+          }
+          <div>
+            <h4  style={{color:"orange"}}>ingredients</h4>
+            <p>{recipe.ingredients}</p>
+
+            <h4  style={{color:"orange"}}>instructions</h4>
+            <p>hdfjdfbk</p>
+
+            <h4  style={{color:"orange"}}>preptime</h4>
+            <p>hdfjdfbk</p>
+
+            <h4  style={{color:"orange"}}>cooktime</h4>
+            <p>hdfjdfbk</p>
+
+            <h4  style={{color:"orange"}}>totaltime</h4>
+            <p>hdfjdfbk</p>
+
+            <h4  style={{color:"orange"}}>catagory</h4>
+            <p>hdfjdfbk</p>
+
+            <div className='p-3'>
+              <Table striped bordered hover>
+    
+               <tbody>
+                  <tr>
+                   <td  style={{color:"orange"}}>totalfat</td>
+                   <td>dfghjkl</td>
+                 </tr>
+                  <tr>
+                  <td  style={{color:"orange"}}>sodium</td>
+                    <td>sdfghj</td>
+                  </tr>
+                  <tr>
+                  <td  style={{color:"orange"}}>dietry fiber</td>
+                    <td>sdfghj</td>
+                  </tr>
+                  <tr>
+                  <td  style={{color:"orange"}}>protein</td>
+                    <td>sdfghj</td>
+                  </tr>
+                  <tr>
+                  <td  style={{color:"orange"}}>vitamin c</td>
+                    <td>sdfghj</td>
+                  </tr>
+                  <tr>
+                  <td  style={{color:"orange"}}>potassium</td>
+                    <td>sdfghj</td>
+                  </tr>
+        
+       
+                </tbody>
+              </Table>
+            </div>
+                <div>
+                <div className='mt-3 p-3  justify-content-between'>
+                <button  className='btn btn-primary p-2'>
+                <i class="fa-solid fa-bookmark fa-xl" style={{color: "#FFD43B",}} />
+                </button>
+                
+                <Share />
+
+                <div>
+                                    <div className=' align-items-center gap-3 my-3 rating__group'>
+                                    <span style={{ color: '#ffc800' }} onClick={e=>setReviews({...reviews,ratings:1})}>
+                                        1 <i class="fa-solid fa-star fa-2xs" ></i>
+                                    </span>
+                                    <span style={{ color: '#ffc800' }} onClick={e=>setReviews({...reviews,ratings:2})}>
+                                        2 <i class="fa-solid fa-star fa-2xs" ></i>
+                                    </span>
+                                    <span style={{ color: '#ffc800' }} onClick={e=>setReviews({...reviews,ratings:3})}>
+                                        3 <i class="fa-solid fa-star fa-2xs" ></i>
+                                    </span>
+                                    <span style={{ color: '#ffc800' }} onClick={e=>setReviews({...reviews,ratings:4})}>
+                                        4 <i class="fa-solid fa-star fa-2xs"></i>
+                                    </span>
+                                    <span style={{ color: '#ffc800' }} onClick={e=>setReviews({...reviews,ratings:5})}>
+                                        5 <i class="fa-solid fa-star fa-2xs"></i>
+                                    </span>
+                                </div>
+                                    <div className='border rounded w-50 d-flex justify-content-between mb-4'>
+                                      <input type="text" className='border-0 p-2  w-100' placeholder='reviews' style={{width:"100px",borderColor:'yellow'}}  onChange={e=>setReviews({...reviews,reviewComment:e.target.value})}/>
+                                      <button className='btn btn-warning' type='submit' onClick={handleAddReview}>submit</button>
+                                    </div>
+                           </div>
+                    </div>  
+                </div>
+          </div>
+        </div>
+      </Col>
+    </Row>
+    </>
+  )
+}
+ 
+export default Recipes
+
+
+
+
+

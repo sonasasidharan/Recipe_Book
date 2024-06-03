@@ -13,6 +13,7 @@ import Savedrecipies from './Pages/Savedrecipies'
 import Yoursrecipes from './Pages/Yoursrecipes'
 import { TokenAuthContext } from './Context Api/AuthContextapi'
 import { useContext } from 'react'
+import Recipes from './Pages/Recipes'
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
       <Route path='/auth' element={<Auth/>}></Route>
       <Route path='/prof' element={<Profile/>}></Route>
       <Route path='/save' element={<Savedrecipies/>}></Route>
+      <Route path='/recipes/:rid' element={<Recipes/>}></Route>
       <Route path='/yours' element={authStatus?<Yoursrecipes/>:<Landing/>}></Route>
      </Routes>
      <Footer/>

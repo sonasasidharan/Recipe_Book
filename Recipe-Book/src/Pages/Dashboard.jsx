@@ -71,7 +71,7 @@ function Dashboard() {
         BACK</Link>
       </div>  
 
-     </div>
+   </div>
    
 
     </>

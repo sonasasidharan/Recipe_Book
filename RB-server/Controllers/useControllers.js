@@ -1,5 +1,5 @@
 
-const recipes = require('../Models/recipeModels')
+// const recipes = require('../Models/recipeModels')
 const users=require('../Models/userModels')
 
 const jwt=require('jsonwebtoken')
@@ -10,13 +10,13 @@ exports.userRegister=async(req,res)=>{
     console.log("inside register function")
    try{
     const existingUser=  await users.findOne({email})
-    console.log(existingUser)
+    // console.log(existingUser)
     if(existingUser){
         res.status(401).json("user already exist")
     }
     else{
         const newUser=new users({
-            username,password,email,profile:""
+            username,password,email,Profile:""
         })
          await newUser.save()
          res.status(201).json(newUser)

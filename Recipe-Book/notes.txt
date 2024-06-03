@@ -1,4 +1,69 @@
+recipe.jsx=>-----------
 
+const [recipe, setRecipe] = useState([]);
+const { rid } = useParams();
+const user = sessionStorage.getItem("username");
+const [reviews, setReviews] = useState({
+  username: user,
+  reviewComment: "",
+  ratings: ""
+});
+const [allReviews, setAllReviews] = useState([]);
+
+useEffect(() => {
+  getData();
+}, []);
+
+const getData = async () => {
+  const header = { "Authorization": `Bearer ${sessionStorage.getItem('token')}` };
+  console.log(header)
+  
+    const result = await singleRecipe(rid, header)
+    // const rev = await getAllReviews(rid, header)
+    console.log(result.data)
+
+    if (result.status === 200) {
+      setRecipe(result.data)
+    } else {
+      console.log(result.response.data)
+    }
+
+    if (rev.status === 200) {
+      setAllReviews(rev.data)
+    } else {
+      console.log(rev.response.data)
+    }
+  } 
+}
+
+const handleAddReview = async () => {
+  const header = { "Authorization": `Bearer ${sessionStorage.getItem('token')}` };
+  try {
+    const result = await addReviews(rid, reviews, header);
+
+    if (result.status === 200) {
+      toast.success("Review added successfully");
+      setReviews({
+        username: user,
+        reviewComment: "",
+        ratings: ""
+      });
+      getData(); // Refresh reviews
+    } else {
+      toast.error(result.response.data);
+    }
+  } catch (error) {
+    toast.error("Error adding review");
+    console.error(error);
+  }
+};
+
+console.log(recipe);
+console.log(allReviews);
+console.log(reviews);
+====================================================================================================================================
+==============================================================================================================================================
+================================================================================================================================================
     <div className='d-flex justify-content-center align-items-center w-100' style={{ height: '100vh' }}>
                 <div className='shadow border w-50 p-4'>
                     <Row>
@@ -666,3 +731,385 @@ function Profile() {
 
 export default Profile
 
+
+
+
+
+
+import React from 'react'
+import {Row,Col} from 'react-bootstrap'
+import server_url from '../Services/server_url'
+import Share from '../Components/Share';
+import { Form } from 'react-bootstrap';
+import { ListGroup } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+
+
+function Recipes({recipe}) {
+  return (
+<>
+
+<div >
+        <Row>
+           
+        {/* <Col>
+            <img className='img-fluid'  src="https://d2slcw3kip6qmk.cloudfront.net/marketing/blog/2017Q2/project-planning-header@2x.png" />
+            </Col> */}
+
+                <Col md='6'>
+                    <div className="w-100 mt-5" style={{ marginLeft: "190px" }}>
+                        {/* {tour.packageName} */}
+                        <h2></h2>
+                        <img  src="https://d2slcw3kip6qmk.cloudfront.net/marketing/blog/2017Q2/project-planning-header@2x.png"alt="" style={{width:'600px'}} />
+
+                        <div className="border my-4 p-3">
+                            <div className='d-flex align-items-center gap-5'>
+                                <span className='tour__rating d-flex  align-items-center gap-1'>
+                                    <i class="fa-solid fa-star fa-2xs" style={{ color: '#ffc800' }}></i>4.2
+                                </span>
+
+                                <span>
+
+                                </span>
+                            </div>
+                            <div className=" my-2 d-flex">
+                                <span className='me-5'>hgfd</span>
+                            </div>
+                            <h5>mnbvc</h5>
+                          
+                            <p></p>
+                        </div>
+
+                       
+                        <div className="border p-3">
+                            <h4>Reviews </h4>
+                            <div style={{ marginLeft: "700px", marginTop: "-40px" }}>
+                                <i class="fa-solid fa-camera-retro fa-2xl"></i>
+                            </div>
+
+                            <Form >
+                                <div className='d-flex align-items-center gap-3 my-3 rating__group'>
+                                    <span style={{ color: '#ffc800' }}>
+                                        1 <i class="fa-solid fa-star fa-2xs" ></i>
+                                    </span>
+                                    <span style={{ color: '#ffc800' }}>
+                                        2 <i class="fa-solid fa-star fa-2xs" ></i>
+                                    </span>
+                                    <span style={{ color: '#ffc800' }}>
+                                        3 <i class="fa-solid fa-star fa-2xs" ></i>
+                                    </span>
+                                    <span style={{ color: '#ffc800' }}>
+                                        4 <i class="fa-solid fa-star fa-2xs"></i>
+                                    </span>
+                                    <span style={{ color: '#ffc800' }}>
+                                        5 <i class="fa-solid fa-star fa-2xs"></i>
+                                    </span>
+                                </div>
+
+                                <div className="border rounded w-50  d-flex justify-content-between mb-4">
+                                    <input className='border-0 w-100 p-2' type="text" placeholder='share your thoughts' />
+                                    <button className="btn btn-warning" type='submit'>
+                                        Submit
+                                    </button>
+                                </div>
+                            </Form>
+
+                            <ListGroup className=''>
+
+                                <div className="my-4 border rounded-4">
+                                    <div className='w-100'>
+                                        <div className='d-flex align-items-center justify-content-between pe-3'>
+                                            <div className='d-flex justify-content-around w-25'>
+                                                <div>
+                                                    <i class="fa-regular fa-user"></i>
+                                                </div>
+                                                <div>
+                                                    <h5 style={{ marginBottom: '-3px' }}>Shifa</h5>
+                                                    <p> {new Date('01-18-2023').toLocaleDateString("india")}</p>
+                                                </div>
+                                            </div>
+                                            <span style={{ marginTop: '-13px' }}>
+                                                5 <i class="fa-solid fa-star fa-2xs" style={{ color: '#ffc800' }}></i>
+                                            </span>
+                                        </div>
+                                        <h6 style={{ marginLeft: '80px' }}>Amazing recipe</h6>
+                                    </div>
+                                </div>
+
+
+                                <div className="my-4 border rounded-4">
+                                    <div className='w-100'>
+                                        <div className='d-flex align-items-center justify-content-between pe-3'>
+                                            <div className='d-flex justify-content-around w-25'>
+                                                <div>
+                                                    <i class="fa-regular fa-user"></i>
+                                                </div>
+                                                <div>
+                                                    <h5 style={{ marginBottom: '-3px' }}>Sona</h5>
+                                                    <p> {new Date('01-18-2023').toLocaleDateString("india")}</p>
+                                                </div>
+                                            </div>
+                                            <span style={{ marginTop: '-13px' }}>
+                                                5 <i class="fa-solid fa-star fa-2xs" style={{ color: '#ffc800' }}></i>
+                                            </span>
+                                        </div>
+                                        <h6 style={{ marginLeft: '80px' }}>Amazing </h6>
+                                    </div>
+                                </div>
+                            </ListGroup>
+                        </div>
+                    </div>
+
+                </Col>
+                <Col md='6'>
+                    <div>
+                        <h2 style={{ marginLeft: "350px", marginTop: "300px" }}>Book Now!</h2>
+                        <div className=' d-flex justify-content-center align-items-center' style={{ marginLeft: "150px" }}>
+                            <Link to={'/bookingdet'}><img src="https://rockonrr.com/wp-content/uploads/2021/02/Booking-Appointment.png" height={"300px"} alt="" /></Link>
+                        </div>
+                    </div>
+
+                </Col>
+            </Row>
+          
+            </div>
+</>
+  )
+}
+
+export default Recipes
+
+
+
+
+
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+<div className='justify-content-center align-items-center p-5 md-4'>
+    <Modal  style={{width:'100%'}} show={show} onHide={handleClose} backdrop="static" keyboard={false} className='modal-xl align-items-center'>
+        <Modal.Header closeButton>
+          <Modal.Title style={{color:"green"}}>Recipes</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div >
+        <Row>
+           
+        <Col className='align-items-center p-3'>
+        <h2 style={{color:"#FFD43B"}}>{recipe.title}</h2>
+        <div className="border my-4 p-3">
+                            <div className='d-flex align-items-center gap-5'>
+                                <span className=' d-flex  align-items-center gap-1'>
+                                    <i class="fa-solid fa-star fa-2xs" style={{ color: '#ffc800' }}></i>4.2
+                                </span>
+
+                                <span>
+
+                                </span>
+                            </div>
+                            <div className=" my-2 d-flex">
+                                <span className='me-5'>hgfd</span>
+                            </div>
+                            <h5>mnbvc</h5>
+                          
+                            <p></p>
+                        </div>
+            <img className='img-fluid' src={recipe.imageUrl?`${server_url}/uploads/${recipe.imageUrl}`:"https://d2slcw3kip6qmk.cloudfront.net/marketing/blog/2017Q2/project-planning-header@2x.png" }/>
+            {/* </Col>
+            <Col> */}
+            
+            <h6 style={{color:"orange"}}>ingredients</h6>
+            <p>{recipe.ingredients}</p>
+            <h6 style={{color:"orange"}}>instructions</h6>
+            <p>{recipe.instructions}</p>
+            <h6 style={{color:"orange"}}>prepTime</h6>
+            <p>{recipe.prepTime}</p>
+            <h6 style={{color:"orange"}}>cooking time</h6>
+            <p>{recipe.cookingTime}</p>
+            <h6 style={{color:"orange"}}>totalCooktime</h6>
+            <p>{recipe.totalCooktime}</p>
+            <h6 style={{color:"orange"}}>catagory</h6>
+            <p>{recipe.catagory}</p>
+            <div>
+            
+                
+                    <p>total fat</p>
+                    <h6>{recipe.totalfat}</h6>
+                    <p>sodium</p>
+                    <h6>{recipe.sodium}</h6>
+                    <p>dietry fiber</p>
+                    <h6>{recipe.dietrfiber}</h6>
+                    <p>protein</p>
+                    <h6>{recipe.protein}</h6>
+                    <p>vitaminc</p>
+                    <h6>{recipe.vitaminc}</h6>
+                    <p>potassium</p>
+                    <h6>{recipe.potassium}</h6>
+                  
+            </div>
+
+           <div className='mt-3 p-3 d-flex justify-content-between'>
+                   <button  className='btn btn-primary p-2'  onClick={handleSavedRecipe}> 
+                <i class="fa-solid fa-bookmark fa-xl" style={{color: "#FFD43B",}} />
+                 </button> 
+                
+                <Share status={true}/>
+              
+                {/* <a href="">
+               <i class="fa-regular fa-star" style={{color: "#FFD43B",}} />
+                </a> */}
+            </div> 
+
+            </Col>
+            <div>
+                                    <div className=' align-items-center gap-3 my-3 rating__group'>
+                                    <span style={{ color: '#ffc800' }} onClick={e=>setReviews({...reviews,ratings:1})}>
+                                        1 <i class="fa-solid fa-star fa-2xs" ></i>
+                                    </span>
+                                    <span style={{ color: '#ffc800' }} onClick={e=>setReviews({...reviews,ratings:2})}>
+                                        2 <i class="fa-solid fa-star fa-2xs" ></i>
+                                    </span>
+                                    <span style={{ color: '#ffc800' }} onClick={e=>setReviews({...reviews,ratings:3})}>
+                                        3 <i class="fa-solid fa-star fa-2xs" ></i>
+                                    </span>
+                                    <span style={{ color: '#ffc800' }} onClick={e=>setReviews({...reviews,ratings:4})}>
+                                        4 <i class="fa-solid fa-star fa-2xs"></i>
+                                    </span>
+                                    <span style={{ color: '#ffc800' }} onClick={e=>setReviews({...reviews,ratings:5})}>
+                                        5 <i class="fa-solid fa-star fa-2xs"></i>
+                                    </span>
+                                </div>
+                                    <div className='border rounded w-50 d-flex justify-content-between mb-4'>
+                                      <input type="text" className='border-0 p-2  w-100' placeholder='reviews' style={{width:"100px",borderColor:'yellow'}}  onChange={e=>setReviews({...reviews,reviewComment:e.target.value})}/>
+                                      <button className='btn btn-warning' type='submit' onClick={handleAddReview}>submit</button>
+                                    </div>
+      
+                           </div> 
+        </Row>
+        </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      </div>
+
+
+
+
+recipelist modal replacement
+===========================
+
+
+    #   <div className='justify-content-center align-items-center p-5 md-4'>
+    <Modal  style={{width:'100%'}} show={show} onHide={handleClose} backdrop="static" keyboard={false} className='modal-xl align-items-center'>
+        <Modal.Header closeButton>
+          <Modal.Title style={{color:"green"}}>Recipes</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div >
+        <Row>
+           
+        <Col className='align-items-center p-3'>
+        <h2 style={{color:"#FFD43B"}}>{recipe.title}</h2>
+        <div className=" my-4 p-3">
+                            <div className='d-flex align-items-center gap-5'>
+                                <span className=' d-flex  align-items-center gap-1'>
+                                    <i class="fa-solid fa-star fa-2xs" style={{ color: '#ffc800' }}></i>4.2
+                                </span>
+
+                                <span>
+
+                                </span>
+                            </div>
+                            <div className=" my-2 d-flex">
+                                <span className='me-5'>hgfd</span>
+                            </div>
+                            <h5>mnbvc</h5>
+                          
+                            <p></p>
+                        </div>
+            <img className='img-fluid' src={recipe.imageUrl?`${server_url}/uploads/${recipe.imageUrl}`:"https://d2slcw3kip6qmk.cloudfront.net/marketing/blog/2017Q2/project-planning-header@2x.png" }/>
+            {/* </Col>
+            <Col> */}
+            
+            <h6 style={{color:"orange"}}>ingredients</h6>
+            <p>{recipe.ingredients}</p>
+            <h6 style={{color:"orange"}}>instructions</h6>
+            <p>{recipe.instructions}</p>
+            <h6 style={{color:"orange"}}>prepTime</h6>
+            <p>{recipe.prepTime}</p>
+            <h6 style={{color:"orange"}}>cooking time</h6>
+            <p>{recipe.cookingTime}</p>
+            <h6 style={{color:"orange"}}>totalCooktime</h6>
+            <p>{recipe.totalCooktime}</p>
+            <h6 style={{color:"orange"}}>catagory</h6>
+            <p>{recipe.catagory}</p>
+            <div>
+            
+                
+                    <p>total fat</p>
+                    <h6>{recipe.totalfat}</h6>
+                    <p>sodium</p>
+                    <h6>{recipe.sodium}</h6>
+                    <p>dietry fiber</p>
+                    <h6>{recipe.dietrfiber}</h6>
+                    <p>protein</p>
+                    <h6>{recipe.protein}</h6>
+                    <p>vitaminc</p>
+                    <h6>{recipe.vitaminc}</h6>
+                    <p>potassium</p>
+                    <h6>{recipe.potassium}</h6>
+                  
+            </div>
+
+           <div className='mt-3 p-3 d-flex justify-content-between'>
+                   <button  className='btn btn-primary p-2'  onClick={handleSavedRecipe}> 
+                <i class="fa-solid fa-bookmark fa-xl" style={{color: "#FFD43B",}} />
+                 </button> 
+                
+                <Share status={true}/>
+              
+                {/* <a href="">
+               <i class="fa-regular fa-star" style={{color: "#FFD43B",}} />
+                </a> */}
+            </div> 
+
+            </Col>
+            <div>
+                                    <div className=' align-items-center gap-3 my-3 rating__group'>
+                                    <span style={{ color: '#ffc800' }} onClick={e=>setReviews({...reviews,ratings:1})}>
+                                        1 <i class="fa-solid fa-star fa-2xs" ></i>
+                                    </span>
+                                    <span style={{ color: '#ffc800' }} onClick={e=>setReviews({...reviews,ratings:2})}>
+                                        2 <i class="fa-solid fa-star fa-2xs" ></i>
+                                    </span>
+                                    <span style={{ color: '#ffc800' }} onClick={e=>setReviews({...reviews,ratings:3})}>
+                                        3 <i class="fa-solid fa-star fa-2xs" ></i>
+                                    </span>
+                                    <span style={{ color: '#ffc800' }} onClick={e=>setReviews({...reviews,ratings:4})}>
+                                        4 <i class="fa-solid fa-star fa-2xs"></i>
+                                    </span>
+                                    <span style={{ color: '#ffc800' }} onClick={e=>setReviews({...reviews,ratings:5})}>
+                                        5 <i class="fa-solid fa-star fa-2xs"></i>
+                                    </span>
+                                </div>
+                                    <div className='border rounded w-50 d-flex justify-content-between mb-4'>
+                                      <input type="text" className='border-0 p-2  w-100' placeholder='reviews' style={{width:"100px",borderColor:'yellow'}}  onChange={e=>setReviews({...reviews,reviewComment:e.target.value})}/>
+                                      <button className='btn btn-warning' type='submit' onClick={handleAddReview}>submit</button>
+                                    </div>
+      
+                           </div> 
+        </Row>
+        </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>

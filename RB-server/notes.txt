@@ -18,3 +18,122 @@ router.delete('/delete-recipes/:rid',jwtmiddle,recipeController.deleteRecipe)
 // router.get('/getSavedRecipe',jwtmiddle,recipeController.getSavedRecipe)
 
 module.exports=router
+
+
+
+
+
+// exports.savedRecipes=async(req,res)=>{
+//     const id=req.params.id
+//     let recipe=await savedRecipe.findOne({recipe:id})
+//     if(recipe)
+//         res.json("recipe already saved")
+//     recipe=await savedRecipe.create({recipe:id})
+//     res.json("recipe saved successfully")
+    
+// }
+
+// exports.getSavedRecipe=async(req,res)=>{
+//     const recipe=await savedRecipe.find()
+//     res.json({recipe})
+// }
+
+
+// exports.saveRecipe=async(req,res)=>{
+//     const recipe=await recipes.findById(req.body.rid)
+//     const user=await users.findById(req.body.userId)
+//     try{
+//         user.savedRecipes.push(recipe)
+//         await user.save()
+//         res.status(200).json("recipe saved successfully")
+//     }
+//     catch(err){
+//         console.log(err)
+//         res.status(406).json(err)
+//     }
+// }
+
+
+// exports.getSavedRecipeId=async(req,res)=>{
+//   try{
+//     const user=await users.findById(req.params.userId)
+//     res.status(200).json("recipe saved successfully")
+//   }
+//   catch(err){
+//     console.log(err)
+//     res.status(406).json(err)
+//   }
+// }
+
+
+// exports.getSavedRecipe=async(req,res)=>{
+//     try{
+//         const user=await users.findById(req.params.userId)
+//         const savedRecipes=await recipes.find({_id:users.savedRecipes})
+//         res.status(200).json("saved recipe fetch successfully")
+//     }
+//     catch(err){
+//         console.log(err)
+//         res.status(406).json("could not find saved recipes")
+//     }
+// }
+
+
+// router.put('/save',jwtmiddle,recipeController.saveRecipe)
+// router.get('/getsavedrecipeid/:userId',jwtmiddle,recipeController.getSavedRecipeId)
+// router.get('/getsavedrecipe/userId',jwtmiddle,recipeController.getSavedRecipe)
+
+exports.savedRecipeById = async (req, res) => {
+    const id = req.params.id;
+
+    try {
+        // Attempt to find a saved recipe by the given id
+        let recipe = await savedRecipes.findOne({ recipe: id });
+
+        if (recipe) {
+            // If the recipe is found, respond with a message indicating it is already saved
+            console.log(recipe)
+            return res.status(200).json({ message: "Recipe already saved" });
+        } else {
+            // If the recipe is not found, create a new entry and respond with a success message
+            recipe = await savedRecipes.create({ recipe: id });
+            return res.status(201).json({ message: "Recipe saved successfully" });
+        }
+    } catch (err) {
+        // Log the error and respond with a status 400 and the error message
+        console.error(err);
+        return res.status(400).json({ message: "An error occurred", error: err.message });
+    }
+}
+
+
+
+exports.savedRecipeById=async(req,res)=>{
+    // const id=req.params.id
+    const recipe_id=req.params
+   try{
+    let recipe=await savedRecipes.findOne({recipe_id})
+    if(recipe){
+        res.json("recipe already saved")
+    }
+    else{
+        recipe=await savedRecipes.create({recipe_id})
+        res.json("recipe saved successfully")
+    }
+ }catch(err){
+    console.log(err)
+    res.status(400).json(err)
+ }
+   }
+
+
+
+   exports.getSavedRecipe=async(req,res)=>{
+   try{
+    const recipe =await savedRecipes.find()
+    res.json({recipe})
+   }catch(err){
+    console.log(err)
+    res.status(400).json(err)
+   }
+   }

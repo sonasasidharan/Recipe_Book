@@ -5,7 +5,7 @@ import Modal from 'react-bootstrap/Modal';
 import { Row,Col } from 'react-bootstrap';
 
 function Share({status}) {
-    console.log(status)
+    // console.log(status)
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);

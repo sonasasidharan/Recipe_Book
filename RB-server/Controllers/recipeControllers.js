@@ -1,13 +1,14 @@
 const recipes=require('../Models/recipeModels')
-const users = require('../Models/userModels')
+const mongoose=require('mongoose')
+// const users = require('../Models/userModels')
 
 
 // add recipe
 exports.addRecipe=async(req,res)=>{
     const userId=req.payload
-    const {title, ingredients, instructions, imageUrl,cookingTime,catagory}=req.body
+    const {title, ingredients, instructions, imageUrl,cookingTime,catagory,prepTime,totalCooktime,totalfat,sodium,dietaryfiber,protein,vitaminc,potassium}=req.body
    const img=req.file.filename
-   console.log(title, ingredients, instructions,img,cookingTime,catagory,userId)
+   console.log(title, ingredients, instructions,img,cookingTime,catagory,prepTime,totalCooktime,totalfat,sodium,dietaryfiber,protein,vitaminc,potassium,userId)
    try{
     const existingRecipe= await recipes.findOne({title})
     if(existingRecipe){
@@ -15,7 +16,7 @@ exports.addRecipe=async(req,res)=>{
     }
     else{
  const newRecipe= new recipes({
-     title, ingredients, instructions,imageUrl:img,cookingTime,catagory,userId
+     title, ingredients, instructions,imageUrl:img,cookingTime,catagory,prepTime,totalCooktime,totalfat,sodium,dietaryfiber,protein,vitaminc,potassium,userId
  })
      await newRecipe.save()
      res.status(200).json(newRecipe)
@@ -86,13 +87,13 @@ exports.userRecipes=async(req,res)=>{
 
 exports.editRecipe=async(req,res)=>{
     // console.log("inside edit recipe")
-    const {title,ingredients,instructions,cookingTime,catagory,imageUrl}=req.body
+    const {title, ingredients, instructions, imageUrl,cookingTime,catagory,prepTime,totalCooktime,totalfat,sodium,dietaryfiber,protein,vitaminc,potassium}=req.body
     const userId=req.payload
     const RecipeImage =req.file ? req.file.filename:imageUrl
     const {rid}=req.params 
     try{
         const updateRecipe=await recipes.findByIdAndUpdate({_id:rid},
-        {title,ingredients,instructions,cookingTime,imageUrl:RecipeImage,catagory,userId},{new:true})
+        {title,ingredients,instructions,cookingTime,imageUrl:RecipeImage,catagory,prepTime,totalCooktime,totalfat,sodium,dietaryfiber,protein,vitaminc,potassium,userId},{new:true})
         await updateRecipe.save
         res.status(200).json(updateRecipe)
     }
@@ -119,61 +120,53 @@ exports.editRecipe=async(req,res)=>{
  }
 
 
+ exports.singleRecipe=async(req,res)=>{
+    const {rid}=req.params
+    try{
+        const result=await recipes.findById({_id:rid})
+            if(result){
+            res.status(200).json(result)
+            }
+            else{
+                res.status(401).json("no recipe available")
+            }
+        
+    }catch(err) {
+        console.log(err)
+        res.status(406).json(err)
+    }
 
-// exports.savedRecipes=async(req,res)=>{
-//     const id=req.params.id
-//     let recipe=await savedRecipe.findOne({recipe:id})
-//     if(recipe)
-//         res.json("recipe already saved")
-//     recipe=await savedRecipe.create({recipe:id})
-//     res.json("recipe saved successfully")
-    
-// }
-
-// exports.getSavedRecipe=async(req,res)=>{
-//     const recipe=await savedRecipe.find()
-//     res.json({recipe})
-// }
+ }
 
 
-// exports.saveRecipe=async(req,res)=>{
-//     const recipe=await recipes.findById(req.body.rid)
-//     const user=await users.findById(req.body.userId)
-//     try{
-//         user.savedRecipes.push(recipe)
-//         await users.save()
-//         res.status(200).json("recipe saved successfully")
+
+
+// exports.singleRecipe = async (req, res) => {
+//     try {
+//         const { _id } = req.params; // Assuming _id comes from route params
+
+//         console.log(`Received _id: ${_id}`); // Debugging statement
+
+//         if (!mongoose.Types.ObjectId.isValid(_id)) {
+//             return res.status(400).json({ error: 'Invalid recipe ID' });
+//         }
+
+//         const recipe = await recipes.findById(_id);
+
+//         if (!recipe) {
+//             return res.status(404).json({ error: 'Recipe not found' });
+//         }
+
+//         res.json(recipe);
+//     } catch (error) {
+//         console.error('Error fetching single recipe:', error); // Debugging statement
+//         res.status(500).json({ error: 'Server error' });
 //     }
-//     catch(err){
-//         console.log(err)
-//         res.status(406).json(err)
-//     }
-// }
+// };
 
 
-// exports.getSavedRecipeId=async(req,res)=>{
-//   try{
-//     const user=await users.findById(req.params.userId)
-//     res.status(200).json("recipe saved successfully")
-//   }
-//   catch(err){
-//     console.log(err)
-//     res.status(406).json(err)
-//   }
-// }
 
-
-// exports.getSavedRecipe=async(req,res)=>{
-//     try{
-//         const user=await users.findById(req.params.userId)
-//         const savedRecipes=await recipes.find({_id:users.savedRecipes})
-//         res.status(200).json("saved recipe fetch successfully")
-//     }
-//     catch(err){
-//         console.log(err)
-//         res.status(406).json("could not find saved recipes")
-//     }
-// }
+ 
 
 
 

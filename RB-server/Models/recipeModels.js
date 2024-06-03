@@ -21,8 +21,15 @@ const recipeSchema=new  mongoose.Schema({
         type:String,
         required:true
     },
-
+    prepTime:{
+        type:String,
+        required:true
+    },
     cookingTime:{
+        type:String,
+        required:true
+    },
+    totalCooktime:{
         type:String,
         required:true
     },
@@ -32,10 +39,42 @@ const recipeSchema=new  mongoose.Schema({
         required:true
         
     },
+
     userId:{
         type:String,
         required:true,
-    }
+    },
+    totalfat:{
+        type:String,
+        required:true,
+    },
+    sodium:{
+        type:String,
+        required:true,
+    },
+    dietaryfiber:{
+        type:String,
+        required:true,
+    },
+    protein:{
+        type:String,
+        required:true,
+    },
+    vitaminc:{
+        type:String,
+        required:true,
+    },
+
+    potassium:{
+        type:String,
+        required:true,
+    },
+        review:{
+            type:mongoose.Types.ObjectId,
+            ref:"reviews"
+
+        }
+    
 
 })
 

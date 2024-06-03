@@ -48,15 +48,37 @@ export const updateProfile=async(header,data)=>{
         return await commonApi('PUT',`${base_url}/update-profile`,data,header)
 }
 
-// // saveRecipe
-// export const saveRecipe=async(id,header)=>{
-//         return await commonApi('POST',`${base_url}/saved-recipes/${id}`,"",header)
-// }
+// saveRecipe
+export const saveRecipe=async(data,header)=>{
+        return await commonApi('POST',`${base_url}/save-recipes`,data,header)
+        
+}
 
-// // getsavedrecipe
-// export const getsavedrecipe=async(data,header)=>{
-//         return await commonApi('GET',`${base_url}/getsaved-recipes`,data,header)
-// }
+// getsavedrecipe
+export const getsavedrecipe=async(userId,header)=>{
+        console.log(userId)  
+        return await commonApi('GET',`${base_url}/saved/${userId}`,"",header)
+       
+}
+
+
+
+// singleRecipe
+
+export const singleRecipe=async(rid,header)=>{
+        return await commonApi('GET',`${base_url}/single-recipes/${rid}`,"",header)
+}
+
+// add reviews
+export const addReviews=async(rid,data,header)=>{
+        return await commonApi('POST',`${base_url}/create-review/${rid}`,data,header)
+}
+
+// get review
+export const getAllReviews=async(rid,header)=>{
+        return await commonApi('GET',`${base_url}/getReview/${rid}`,"",header)
+}
+
 
 
  
