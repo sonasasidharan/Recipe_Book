@@ -11,6 +11,7 @@ import server_url from '../Services/server_url'
 import { Link } from 'react-router-dom';
 
  function Recipes() {
+  const [addStatus,setAddStatus]=useState({})
 
 
   const [recipe,setRecipe]=useState([])
@@ -31,7 +32,7 @@ import { Link } from 'react-router-dom';
 
     useEffect(()=>{
       getData()
-    },[])
+    },[addStatus])
 
 // console.log(recipe)
 
@@ -78,6 +79,7 @@ import { Link } from 'react-router-dom';
       setReview({
         reviewComment: "" , ratings: ""
       })
+      setAddStatus(result)
     }
     else{
       toast.error(result.response.data)
@@ -103,11 +105,12 @@ import { Link } from 'react-router-dom';
     } 
    
     
-      const result = await saveRecipe(data,user, header)
+      const result = await saveRecipe(data,header)
       if(result.status==200){
         toast.success("recipe saved successfully")
         sessionStorage.setItem('savedRecipeId')
-      }else{
+      }
+      else{
         console.log(result)
         // toast.error("recipe saving is failed")
         toast.error(result.response.data)
@@ -224,7 +227,7 @@ import { Link } from 'react-router-dom';
                 </button>
                 
                <div className='p-1' >
-               <Share />
+               {/* <Share /> */}
                </div>
                 </div>
                 </div>

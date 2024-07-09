@@ -14,6 +14,8 @@ import { useContext } from 'react';
 function Edit({recipe}) {
     // console.log(recipe, "from edit")
 
+  
+
     const {editRecipeResponse,setEditRecipeResponse}=useContext(editRecipeResponseContext)
 
     const [recipes,setRecipes]=useState({
@@ -140,10 +142,10 @@ keyboard={false}
         <img className='img-fluid' src={preview?preview:`${base_url}/uploads/${recipe.imageUrl}`} style={{height:'160px'}} alt=""/>
     </label>
 
-        {
+        {/* {
             imgStatus &&
             <p className='text-danger'>image extension invalid</p>
-        }
+        } */}
     </Col>
     <Col>
     <div>

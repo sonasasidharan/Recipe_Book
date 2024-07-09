@@ -8,7 +8,7 @@ function Footer() {
      <div className='w-100 bg-light  bg-success'>
       <Row>
         <Col className='d-flex flex-column align-items-center'> 
-        <h4>project fair 2024</h4>
+        <h4>Recipe book 2024</h4>
           <p  style={{textAlign:'justify'}}> Recipe is a recipe web application it provide thousands of verities of<br/>
           food recipies .We can prepare delicious foods with perfect intructions </p></Col>
      
@@ -35,7 +35,7 @@ function Footer() {
 
         
       <div className='text-center' style={{color:'#FFD43B'}}>
-          <p> &copy; project fair 2024</p>
+          <p> &copy; Recipe Book 2024</p>
       </div>
       </Row>
       </div>

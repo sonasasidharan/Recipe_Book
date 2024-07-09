@@ -55,12 +55,11 @@ export const saveRecipe=async(data,header)=>{
 }
 
 // getsavedrecipe
-export const getsavedrecipe=async(userId,header)=>{
-        console.log(userId)  
-        return await commonApi('GET',`${base_url}/saved/${userId}`,"",header)
+export const getsavedrecipe=async(header)=>{
+        // console.log(userId)  
+        return await commonApi('GET',`${base_url}/saved`,"",header)
        
 }
-
 
 
 // singleRecipe

@@ -12,7 +12,7 @@ const [homeRecipe,setHomeRecipe]=useState([])
 
   useEffect(()=>{
        // conditional rendering
-  const token=sessionStorage.getItem('token') 
+  // const token=sessionStorage.getItem('token') 
   getRecipes(3)
   })
 

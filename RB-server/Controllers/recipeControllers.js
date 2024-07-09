@@ -141,28 +141,7 @@ exports.editRecipe=async(req,res)=>{
 
 
 
-// exports.singleRecipe = async (req, res) => {
-//     try {
-//         const { _id } = req.params; // Assuming _id comes from route params
 
-//         console.log(`Received _id: ${_id}`); // Debugging statement
-
-//         if (!mongoose.Types.ObjectId.isValid(_id)) {
-//             return res.status(400).json({ error: 'Invalid recipe ID' });
-//         }
-
-//         const recipe = await recipes.findById(_id);
-
-//         if (!recipe) {
-//             return res.status(404).json({ error: 'Recipe not found' });
-//         }
-
-//         res.json(recipe);
-//     } catch (error) {
-//         console.error('Error fetching single recipe:', error); // Debugging statement
-//         res.status(500).json({ error: 'Server error' });
-//     }
-// };
 
 
 

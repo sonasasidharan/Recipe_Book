@@ -137,3 +137,16 @@ exports.savedRecipeById=async(req,res)=>{
     res.status(400).json(err)
    }
    }
+
+
+
+
+
+    // Check if the recipe is already saved
+        // const isRecipeAlreadySaved = user.savedRecipes.some(savedRecipeId => savedRecipeId.equals(recipe._id));
+        // const isRecipeAlreadySaved = user.savedRecipes.some(savedRecipeId => 
+        //     mongoose.Types.ObjectId(savedRecipeId).equals(recipe._id)
+        // );
+        // const isRecipeAlreadySaved = user.savedRecipes.some(savedRecipeId => {
+        //     return savedRecipeId.toString() === recipe._id.toString();
+        // });

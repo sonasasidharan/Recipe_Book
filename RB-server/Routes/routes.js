@@ -27,7 +27,7 @@ router.get('/getReview/:rid',jwtmiddle,reviewControllers.getRecipeReview)
 router.get('/single-recipes/:rid',jwtmiddle,recipeController.singleRecipe)
 
 router.post('/save-recipes',jwtmiddle,saveControllers.saveRecipe)
-router.get('/saved/:userId',jwtmiddle,saveControllers.getSavedRecipes)
+router.get('/saved',jwtmiddle,saveControllers.getSavedRecipes)
 
 
 
